@@ -1,0 +1,33 @@
+@model Tablero
+<form asp-controller="Tablero" asp-action="EditarP" method="post">
+    <input asp-for="@Model.Id" hidden>
+    <div class="form-group">
+        <label for="nombre">Nombre del tablero</label>
+        <input type="text" class="form-control" id="nombre" asp-for="@Model.Nombre">
+    </div>
+    <div class="form-group">
+        <label for="us_prop">Example select</label>
+        <select class="form-control" id="us_prop" asp-for="@Model.Id_usuario_propietario">
+            @{
+                var usuarios = ViewBag.UsRepos.ListaDeIdUsuarios();
+                foreach (var us in usuarios)
+                {
+                    var usEncontrado = ViewBag.UsRepos.ObtenerDetalles(us);
+                    string nombre = "";
+                    if (usEncontrado != null)
+                    {
+                        nombre = usEncontrado.Nombre_de_Usuario;
+                    }
+                    <option value="@us">@nombre</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="desc">Descripcion</label>
+        <input type="text" class="form-control" id="desc" asp-for="@Model.Descripcion">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>

@@ -1,0 +1,23 @@
+@model List<Usuario>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" hidden></th>
+            <th scope="col">Nombre de Usuario</th>
+            <th scope="col" hidden></th>
+            <th scope="col" hidden></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var us in Model)
+        {
+            <tr>
+                <th scope="row" hidden>@us.Id</th>
+                <td>@us.Nombre_de_Usuario</td>
+                <td><a asp-controller="Usuario" asp-action="Modificar" asp-route-id="@us.Id">Editar</a></td>
+                <td><a asp-controller="Usuario" asp-action="Eliminar" asp-route-id="@us.Id">Eliminar</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>

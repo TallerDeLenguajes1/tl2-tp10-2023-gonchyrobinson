@@ -1,0 +1,46 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" hidden>Id</th>
+            <th scope="col" hidden>Id Tablero</th>
+            <th scope="col">Nombre de Tarea</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Color</th>
+            <th scope="col" hidden>Id Usuario Asignado</th>
+            <th scope="col">Usuario Asignado</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarea in ViewBag.Usuarios)
+        {
+            <tr>
+                <td scope="row" hidden>@tarea.Id</td>
+                <td scope="row" hidden>@tarea.Id_tablero</td>
+                <td scope="row">@tarea.Nombre</td>
+                <td scope="row">@tarea.Estado</td>
+                <td scope="row">@tarea.Descripcion</td>
+                <td scope="row">@tarea.Color</td>
+                <td scope="row" hidden>@tarea.Id_usuario_asignado</td>
+
+                @{
+                    string nombreUs = "";
+                    if (tarea.Id_usuario_asignado != null)
+                    {
+                        var usuarioAsignado = ViewBag.UsRepos.ObtenerDetalles(tarea.Id_usuario_asignado);
+                        if (usuarioAsignado != null)
+                        {
+                            nombreUs = usuarioAsignado.Nombre_de_Usuario;
+                        }
+                    }
+                }
+
+                <td scope="row">@nombreUs</td>
+                <td><a asp-controller="Tarea" asp-action="Editar" asp-route-id="@tarea.Id">Modificar</a></td>
+                <td><a asp-controller="Tarea" asp-action="Eliminar" asp-route-id="@tarea.Id">Eliminar</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
