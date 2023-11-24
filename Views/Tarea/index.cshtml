@@ -1,4 +1,8 @@
-<table class="table">
+@using tl2_tp10_2023_gonchyrobinson.ViewModel
+@model IndexTareaViewModel
+        <h1 class="display-4 text-center">Tareas</h1>   </div>
+
+<table class="table table-bordered table-hover table-responsive table-striped">
     <thead class="thead-dark">
         <tr>
             <th scope="col" hidden>Id</th>
@@ -14,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var tarea in ViewBag.Usuarios)
+        @foreach (var tarea in Model.Tareas)
         {
             <tr>
                 <td scope="row" hidden>@tarea.Id</td>
@@ -24,23 +28,13 @@
                 <td scope="row">@tarea.Descripcion</td>
                 <td scope="row">@tarea.Color</td>
                 <td scope="row" hidden>@tarea.Id_usuario_asignado</td>
-
-                @{
-                    string nombreUs = "";
-                    if (tarea.Id_usuario_asignado != null)
-                    {
-                        var usuarioAsignado = ViewBag.UsRepos.ObtenerDetalles(tarea.Id_usuario_asignado);
-                        if (usuarioAsignado != null)
-                        {
-                            nombreUs = usuarioAsignado.Nombre_de_Usuario;
-                        }
-                    }
-                }
-
-                <td scope="row">@nombreUs</td>
-                <td><a asp-controller="Tarea" asp-action="Editar" asp-route-id="@tarea.Id">Modificar</a></td>
-                <td><a asp-controller="Tarea" asp-action="Eliminar" asp-route-id="@tarea.Id">Eliminar</a></td>
+                <td scope="row">@tarea.NombreUsuarioAsignado</td>
+                <td><a class="btn bg-warning" asp-controller="Tarea" asp-action="Editar" asp-route-id="@tarea.Id">Modificar</a></td>
+                <td><a class="btn bg-danger" asp-controller="Tarea" asp-action="Eliminar" asp-route-id="@tarea.Id">Eliminar</a></td>
             </tr>
         }
     </tbody>
 </table>
+<div class="btn-group d-flex" role="group">
+    <a class="btn btn-primary btn-success" asp-controller="Tarea" asp-action="Crear" >Crear Tarea</a> 
+</div>

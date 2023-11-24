@@ -57,3 +57,4 @@ C:\Users\USUARIO\OneDrive\GONCHY\Guardar\TERCERO-Modulo2\TallerDeLenguajes2\tl2-
 C:\Users\USUARIO\OneDrive\GONCHY\Guardar\TERCERO-Modulo2\TallerDeLenguajes2\tl2-tp10-2023-gonchyrobinson\obj\Debug\net7.0\tl2-tp10-2023-gonchyrobinson.pdb
 C:\Users\USUARIO\OneDrive\GONCHY\Guardar\TERCERO-Modulo2\TallerDeLenguajes2\tl2-tp10-2023-gonchyrobinson\obj\Debug\net7.0\tl2-tp10-2023-gonchyrobinson.genruntimeconfig.cache
 C:\Users\USUARIO\OneDrive\GONCHY\Guardar\TERCERO-Modulo2\TallerDeLenguajes2\tl2-tp10-2023-gonchyrobinson\obj\Debug\net7.0\ref\tl2-tp10-2023-gonchyrobinson.dll
+C:\Users\USUARIO\OneDrive\GONCHY\Guardar\TERCERO-Modulo2\TallerDeLenguajes2\tl2-tp10-2023-gonchyrobinson\obj\Debug\net7.0\tl2-tp10-2023-gonchyrobinson.sourcelink.json

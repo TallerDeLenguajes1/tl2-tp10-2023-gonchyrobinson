@@ -46,3 +46,13 @@ button.accept-policy[b-2j34o8ccea] {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.color-registrar-us[b-2j34o8ccea]{
+  background-color: blue !important;
+  color: white !important;
+  font-size: large !important;
+}  
+.botones-menu[b-2j34o8ccea]{
+  background-color: blue !important;
+  color: white !important;
+}

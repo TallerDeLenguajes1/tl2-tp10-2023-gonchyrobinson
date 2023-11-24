@@ -31,6 +31,15 @@ public class Tarea{
         this.color = color;
         this.id_usuario_asignado = id_usuario_asignado;
     }
+    public Tarea(int id_tablero, string nombre, EstadoTarea? estado, string? descripcion, string? color, int? id_usuario_asignado)
+    {
+        this.id_tablero = id_tablero;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.descripcion = descripcion;
+        this.color = color;
+        this.id_usuario_asignado = id_usuario_asignado;
+    }
 
     public int Id { get => id; set => id = value; }
     public int Id_tablero { get => id_tablero; set => id_tablero = value; }

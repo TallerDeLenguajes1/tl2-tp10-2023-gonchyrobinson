@@ -1,33 +1,32 @@
-@model Tablero
-<form asp-controller="Tablero" asp-action="EditarP" method="post">
+@model EditarTableroViewModel
+@using tl2_tp10_2023_gonchyrobinson.ViewModel
+        <h1 class="display-4 text-center">Editar tablero</h1>   </div>
+
+<form asp-controller="Tablero" asp-action="EditarP" method="post" class="d-flex flex-column">
     <input asp-for="@Model.Id" hidden>
     <div class="form-group">
         <label for="nombre">Nombre del tablero</label>
-        <input type="text" class="form-control" id="nombre" asp-for="@Model.Nombre">
+        <input type="text" class="form-control mb-3" id="nombre" asp-for="@Model.Nombre">
     </div>
     <div class="form-group">
-        <label for="us_prop">Example select</label>
-        <select class="form-control" id="us_prop" asp-for="@Model.Id_usuario_propietario">
+        <label for="us_prop">Usuario Asignado</label>
+        <select class="form-control mb-3" id="us_prop" asp-for="@Model.IdUsuarioAsignado">
             @{
-                var usuarios = ViewBag.UsRepos.ListaDeIdUsuarios();
-                foreach (var us in usuarios)
+                foreach (var us in Model.Usuarios)
                 {
-                    var usEncontrado = ViewBag.UsRepos.ObtenerDetalles(us);
-                    string nombre = "";
-                    if (usEncontrado != null)
-                    {
-                        nombre = usEncontrado.Nombre_de_Usuario;
-                    }
-                    <option value="@us">@nombre</option>
+                    <option value="@us.Id">@us.Nombre</option>
                 }
             }
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="desc">Descripcion</label>
         <input type="text" class="form-control" id="desc" asp-for="@Model.Descripcion">
     </div>
-    <div class="form-group">
+     <div class="btn-group d-flex my-2" role="group">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

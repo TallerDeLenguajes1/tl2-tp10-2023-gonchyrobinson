@@ -1,0 +1,20 @@
+@model LoginViewModel
+@using tl2_tp10_2023_gonchyrobinson.ViewModel
+<form asp-controller="Login" asp-action="Loguear">
+  <input type="hidden" asp-for="@Model.IdUs" value="">
+  <div class="form-group">
+    <label for="us font-weight-bold">Usuario </label>
+    <input asp-for="@Model.NombreUs" class="form-control" id="us" aria-describedby="emailHelp">
+    <small id="emailHelp" class="form-text text-muted">Ingrese su nombre de usuario</small>
+  </div>
+  <div class="form-group">
+    <label for="pass">Contraseña</label>
+    <input type="password" asp-for="@Model.ContraseniaUs" class="form-control" id="pass">
+  </div>
+  <div class="d-flex">
+    <button type="submit" class="col btn btn-secondary mt-3">Cargar</button>
+  </div>
+</form>
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

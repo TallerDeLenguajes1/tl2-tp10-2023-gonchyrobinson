@@ -71,7 +71,7 @@ public class TableroRepository : ITableroRepository
 
     public List<Tablero> ListarTablerosUs(int idUs)
     {
-        var queryString = @"SELECT * FROM Tablero WHERE id = @id_Us";
+        var queryString = @"SELECT * FROM Tablero WHERE id_usuario_propietario = @id_Us";
         using (var connection = new SQLiteConnection(cadenaConexion))
         {
             var command = new SQLiteCommand(queryString, connection);
@@ -114,6 +114,7 @@ public class TableroRepository : ITableroRepository
 
     public Tablero? ObtenerDetallesTablero(int id)
     {
+        Tablero? tab = null;
         var queryString = @"SELECT * FROM Tablero WHERE id = @id_t";
         using (var connection = new SQLiteConnection(cadenaConexion))
         {
@@ -134,21 +135,14 @@ public class TableroRepository : ITableroRepository
                         {
                             descripcion = reader["descripcion"].ToString();
                         }
-                        var tab = new Tablero(id_t, id_us_p, nombre, descripcion);
-                        return tab;
+                        tab = new Tablero(id_t, id_us_p, nombre, descripcion);
                     }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
                 }
             }
-            connection.Close();
+
+        connection.Close();
         }
+        return tab;
     }
     public List<int> ObtenerIdDisponibles()
     {
