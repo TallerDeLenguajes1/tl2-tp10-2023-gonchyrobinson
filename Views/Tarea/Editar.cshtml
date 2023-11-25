@@ -4,6 +4,8 @@
 </div>
 
 <form asp-asp-controller="Tarea" asp-action="EditarP" method="post">
+    <input asp-for="@Model.Usuarios" hidden>
+    <input asp-for="@Model.Tableros" hidden>
     <div class="form-group d-flex flex-column">
         <input hidden asp-for="@Model.Id">
         <label for="id_tablero">Tablero</label>
@@ -13,8 +15,10 @@
                 <option value="@item.Id">@item.Nombre</option>
             }
         </select>
+        <span asp-validation-for="@Model.Id_tablero" class="text-danger"></span>
         <label for="nombre_tarea">Nombre De Tarea</label>
         <input type="text" class="form-control mb-3" id="nombre_tarea" asp-for="@Model.Nombre">
+        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
         <label for="estado_tarea">Estado de tarea</label>
         <select class="form-control mb-3" id="estado_tarea" asp-for="@Model.Estado">
             <option value="@EstadoTarea.Doing">@EstadoTarea.Doing</option>
@@ -40,5 +44,5 @@
     </div>
 </form>
 @section Scripts {
-  <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

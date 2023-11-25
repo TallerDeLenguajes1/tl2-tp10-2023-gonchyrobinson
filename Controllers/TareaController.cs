@@ -16,21 +16,21 @@ public class TareaController : Controller
     private readonly ILogger<TareaController> _logger;
 
     private TareaRepository manejo = new TareaRepository();
-    private UsuarioRepository manejoUs;
-    private TableroRepository manejoTab;
+    private readonly IUsuarioRepository _manejoUs;
+    private readonly ITableroRepository _manejoTab;
 
-    public TareaController(ILogger<TareaController> logger)
+    public TareaController(ILogger<TareaController> logger, IUsuarioRepository manejoUs, ITableroRepository manejoTab)
     {
         _logger = logger;
-        manejoUs = new UsuarioRepository();
-        manejoTab = new TableroRepository();
+        _manejoUs = manejoUs;
+        _manejoTab = manejoTab;
     }
     [HttpGet]
     public IActionResult Index(int? id)
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
-            var usuarios = manejoUs.ListarUsuarios();
+            var usuarios = _manejoUs.ListarUsuarios();
             if (id != null && (HttpContext.Session.GetInt32("Id") == id || HttpContext.Session.GetString("Rol") == "administrador"))
             {
                 var tareas = manejo.ListarTareasUsuario((int)id);
@@ -52,8 +52,8 @@ public class TareaController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
-            var tableros = manejoTab.Listar();
-            var usuarios = manejoUs.ListarUsuarios();
+            var tableros = _manejoTab.Listar();
+            var usuarios = _manejoUs.ListarUsuarios();
             return View(new CrearTareaViewModel(tableros, usuarios));
         }
         else
@@ -67,6 +67,7 @@ public class TareaController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if(!ModelState.IsValid) return RedirectToAction("Crear");
             var tarea = manejo.CrearTarea(new Tarea(tar.Id_tablero, tar.Nombre, tar.Estado, tar.Descripcion, tar.Color, tar.Id_usuario_asignado));
             return RedirectToAction("Index");
         }
@@ -84,8 +85,8 @@ public class TareaController : Controller
             var tarea = manejo.ObtenerDetalles(id);
             if (tarea != null)
             {
-                var tableros = manejoTab.Listar();
-                var usuarios = manejoUs.ListarUsuarios();
+                var tableros = _manejoTab.Listar();
+                var usuarios = _manejoUs.ListarUsuarios();
                 return View(new EditarTareaViewModel(tarea, tableros, usuarios));
             }
             else
@@ -104,6 +105,7 @@ public class TareaController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if(!ModelState.IsValid) return RedirectToAction("Editar");
             var tar = new Tarea(t.Id_tablero, t.Nombre, t.Estado, t.Descripcion, t.Color, t.Id_usuario_asignado);
             var modificado = manejo.ModificarTarea(t.Id, tar);
             return RedirectToAction("Index");

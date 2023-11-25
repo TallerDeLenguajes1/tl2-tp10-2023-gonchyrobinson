@@ -10,18 +10,19 @@ public class UsuarioController : Controller
 {
     private readonly ILogger<UsuarioController> _logger;
 
-    private UsuarioRepository manejoUsuario;
-    public UsuarioController(ILogger<UsuarioController> logger)
+
+    private readonly IUsuarioRepository _manejoUsuario;
+    public UsuarioController(ILogger<UsuarioController> logger,IUsuarioRepository manejo)
     {
         _logger = logger;
-        manejoUsuario = new UsuarioRepository();
+        _manejoUsuario = manejo;
     }
     [HttpGet]
     public IActionResult Index()
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
-            var usuarios = manejoUsuario.ListarUsuarios();
+            var usuarios = _manejoUsuario.ListarUsuarios();
             return View(new IndexUsuarioViewModel(usuarios));
         }
         else
@@ -48,8 +49,9 @@ public class UsuarioController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if(!ModelState.IsValid) return RedirectToAction("Index");
             var us = new Usuario(vs.NombreUs, vs.Contrasenia, vs.Rol);
-            var creado = manejoUsuario.Crear(us);
+            var creado = _manejoUsuario.Crear(us);
             return RedirectToAction("Index");
         }
         else
@@ -65,7 +67,7 @@ public class UsuarioController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
-            var us = manejoUsuario.ObtenerDetalles(id);
+            var us = _manejoUsuario.ObtenerDetalles(id);
             if (us != null)
             {
                 return View(new ModificarUsuarioViewModel(us));
@@ -86,8 +88,9 @@ public class UsuarioController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if(!ModelState.IsValid) return RedirectToAction("Modificar");
             var usuario = new Usuario(us.Id, us.NombreUs, us.Contrasenia, us.Rol);
-            var modificado = manejoUsuario.Modificar(us.Id, usuario);
+            var modificado = _manejoUsuario.Modificar(us.Id, usuario);
             return RedirectToAction("Index");
         }
         else
@@ -101,7 +104,7 @@ public class UsuarioController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
-            var eliminado = manejoUsuario.EliminarUsuario(id);
+            var eliminado = _manejoUsuario.EliminarUsuario(id);
             return RedirectToAction("Index");
         }
         else

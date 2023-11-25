@@ -6,10 +6,12 @@
     <label for="us font-weight-bold">Usuario </label>
     <input asp-for="@Model.NombreUs" class="form-control" id="us" aria-describedby="emailHelp">
     <small id="emailHelp" class="form-text text-muted">Ingrese su nombre de usuario</small>
+    <span asp-validation-for="@Model.NombreUs" class="text-danger"></span>
   </div>
   <div class="form-group">
     <label for="pass">Contraseña</label>
     <input type="password" asp-for="@Model.ContraseniaUs" class="form-control" id="pass">
+    <span asp-validation-for="@Model.ContraseniaUs" class="text-danger"></span>
   </div>
   <div class="d-flex">
     <button type="submit" class="col btn btn-secondary mt-3">Cargar</button>

@@ -9,11 +9,11 @@ namespace tl2_tp10_2023_gonchyrobinson.Controllers;
 public class LoginController : Controller
 {
     private readonly ILogger<LoginController> _logger;
-    LoginRepository manejo;
+    private readonly ILoginRepository _manejo;
 
-    public LoginController(ILogger<LoginController> logger)
+    public LoginController(ILogger<LoginController> logger, ILoginRepository manejo)
     {
-        manejo=new LoginRepository();
+        _manejo=manejo;
         
         _logger = logger;
     }
@@ -24,7 +24,7 @@ public class LoginController : Controller
     }
     [HttpPost]
     public IActionResult Loguear(LoginViewModel log){
-        var us = manejo.CoincideUs(log.NombreUs,log.ContraseniaUs);
+        var us = _manejo.CoincideUs(log.NombreUs,log.ContraseniaUs);
         if(us!=null){
             CrearSessionLogin(us);
             return RedirectToRoute(new{Controller="Usuario", action="Index"});

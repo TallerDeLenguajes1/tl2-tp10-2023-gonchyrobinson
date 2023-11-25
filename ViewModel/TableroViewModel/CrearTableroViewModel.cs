@@ -3,43 +3,39 @@ using tl2_tp10_2023_gonchyrobinson.Models;
 namespace tl2_tp10_2023_gonchyrobinson.ViewModel;
 
 public class CrearTableroViewModel{
-    [Required][Display(Name = "Nombre Tablero")]
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name = "Nombre Tablero")]
 
-    private string nombre;
-    [Required][Display(Name = "Id de Usuario")]
+    public string Nombre{get;set;}
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name = "Id de Usuario")]
 
-    private int id_usuario_propietario;
+    public int Id_usuario_propietario{get;set;}
     //Preguntar si hay problema que use 2 veces ElementoUsuarioEditarTableroViewModel
     
-    private List<ElementoUsuarioEditarTableroViewModel> usuarios;
-    [Required][Display(Name ="Descripcion del Tablero")]
-    private string descripcion;
+    public List<ElementoUsuarioEditarTableroViewModel> Usuarios{get;set;}
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name ="Descripcion del Tablero")]
+    public string Descripcion{get;set;}
 
     public CrearTableroViewModel()
     {
     }
     public CrearTableroViewModel(Tablero t, List<Usuario> usuarios)
     {
-        nombre= t.Nombre;
-        id_usuario_propietario=t.Id_usuario_propietario;
-        this.usuarios=new List<ElementoUsuarioEditarTableroViewModel>();
+        Nombre= t.Nombre;
+        Id_usuario_propietario=t.Id_usuario_propietario;
+        this.Usuarios=new List<ElementoUsuarioEditarTableroViewModel>();
         foreach (var item in usuarios)
         {
-            this.usuarios.Add(new ElementoUsuarioEditarTableroViewModel(item));
+            this.Usuarios.Add(new ElementoUsuarioEditarTableroViewModel(item));
         }
-        descripcion=t.Descripcion;
+        Descripcion=t.Descripcion;
     }
     public CrearTableroViewModel(List<Usuario> usuarios)
     {
-        this.usuarios=new List<ElementoUsuarioEditarTableroViewModel>();
+        this.Usuarios=new List<ElementoUsuarioEditarTableroViewModel>();
         foreach (var item in usuarios)
         {
-            this.usuarios.Add(new ElementoUsuarioEditarTableroViewModel(item));
+            this.Usuarios.Add(new ElementoUsuarioEditarTableroViewModel(item));
         }
     }
 
-    public string Nombre { get => nombre; set => nombre = value; }
-    public int Id_usuario_propietario { get => id_usuario_propietario; set => id_usuario_propietario = value; }
-    public List<ElementoUsuarioEditarTableroViewModel> Usuarios { get => usuarios; set => usuarios = value; }
-    public string Descripcion { get => descripcion; set => descripcion = value; }
 }

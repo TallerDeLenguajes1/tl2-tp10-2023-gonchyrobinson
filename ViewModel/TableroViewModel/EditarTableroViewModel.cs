@@ -3,39 +3,32 @@ using tl2_tp10_2023_gonchyrobinson.Models;
 namespace tl2_tp10_2023_gonchyrobinson.ViewModel;
 
 public class EditarTableroViewModel{
-    [Required][Display(Name ="Id del Tablero")]
 
-    private int id;
-    [Required][Display(Name ="Nombre del Tablero")]
+    public int Id{get;set;}
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name ="Nombre del Tablero")]
 
-    private string nombre;
-    [Required][Display(Name ="Id del Usuario")]
+    public string Nombre{get;set;}
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name ="Id del Usuario")]
 
-    private int idUsuarioAsignado;
+    public int IdUsuarioAsignado{get;set;}
 
-    private List<ElementoUsuarioEditarTableroViewModel> usuarios;
-    [Required][Display(Name ="Descripcion del Tablero")]
+    public List<ElementoUsuarioEditarTableroViewModel> Usuarios{get;set;}
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name ="Descripcion del Tablero")]
     
-    private string descripcion;
+    public string Descripcion{get;set;}
 
     public EditarTableroViewModel()
     {
     }
     public EditarTableroViewModel(Tablero t,List<Usuario> usuarios)
     {
-        id=t.Id;
-        nombre=t.Nombre;
-        this.usuarios=new List<ElementoUsuarioEditarTableroViewModel>();
+        Id=t.Id;
+        Nombre=t.Nombre;
+        this.Usuarios=new List<ElementoUsuarioEditarTableroViewModel>();
         foreach (var item in usuarios)
         {
-            this.usuarios.Add(new ElementoUsuarioEditarTableroViewModel(item));
+            this.Usuarios.Add(new ElementoUsuarioEditarTableroViewModel(item));
         }
-        descripcion=t.Descripcion;
+        Descripcion=t.Descripcion;
     }
-
-    public int Id { get => id; set => id = value; }
-    public string Nombre { get => nombre; set => nombre = value; }
-    public List<ElementoUsuarioEditarTableroViewModel> Usuarios { get => usuarios; set => usuarios = value; }
-    public string Descripcion { get => descripcion; set => descripcion = value; }
-    public int IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
 }

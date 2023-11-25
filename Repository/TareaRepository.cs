@@ -148,13 +148,14 @@ public class TareaRepository : ITareaRepository
         }
     }
 
-    public Tarea ObtenerDetalles(int id)
+    public Tarea? ObtenerDetalles(int id)
     {
         var queryString = @"SELECT * FROM Tarea WHERE id=@id";
         using (var connection = new SQLiteConnection(cadenaConexion))
         {
             var query = new SQLiteCommand(queryString, connection);
             query.Parameters.Add(new SQLiteParameter("@id", id));
+            Tarea? t = null;
             connection.Open();
             using (var reader = query.ExecuteReader())
             {
@@ -175,10 +176,10 @@ public class TareaRepository : ITareaRepository
                 {
                     id_us = null;
                 }
-                var t = new Tarea(idT, id_tab, nombre, estado, descripcion, color, id_us);
-                connection.Close();
-                return t;
+                t = new Tarea(idT, id_tab, nombre, estado, descripcion, color, id_us);
             }
+            connection.Close();
+            return t;
         }
     }
 
