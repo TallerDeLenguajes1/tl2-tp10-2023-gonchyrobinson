@@ -48,6 +48,7 @@ public class UsuarioController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Crear");
             var us = new Usuario(vs.NombreUs, vs.Contrasenia, vs.Rol);
             var creado = manejoUsuario.Crear(us);
             return RedirectToAction("Index");
@@ -86,6 +87,7 @@ public class UsuarioController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Modificar");
             var usuario = new Usuario(us.Id, us.NombreUs, us.Contrasenia, us.Rol);
             var modificado = manejoUsuario.Modificar(us.Id, usuario);
             return RedirectToAction("Index");

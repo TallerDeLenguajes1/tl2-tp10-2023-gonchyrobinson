@@ -4,15 +4,10 @@ namespace tl2_tp10_2023_gonchyrobinson.ViewModel;
 
 public class ElementoIndexTableroViewModel
 {
-    [Required][Display(Name = "Id Tablero")]
     private int id;
-    [Required][Display(Name = "Id Usuario Asignado")]
     private int id_usuario_propietario;
-    [Required][Display(Name = "Nombre Usuario Asignado")]
     private string nombreUsuario;
-    [Required][Display(Name = "Nombre Tablero")]
     private string nombreTablero;
-    [Required][Display(Name = "Descripcion Tablero")]
     private string? descripcion;
 
     public ElementoIndexTableroViewModel()

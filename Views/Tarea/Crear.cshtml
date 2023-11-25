@@ -11,8 +11,10 @@
                 <option value="@item.Id">@item.Nombre</option>
             }
         </select>
+        <span asp-validation-for="@Model.Id_tablero"></span>
         <label for="nombre_tarea">Nombre De Tarea</label>
         <input class="form-control mb-3" id="nombre_tarea" asp-for="@Model.Nombre">
+        <span asp-validation-for="@Model.Nombre"></span>
         <label for="estado_tarea">Estado de tarea</label>
         <select class="form-control mb-3" id="estado_tarea" asp-for="@Model.Estado">
             <option value="@EstadoTarea.Doing">@EstadoTarea.Doing</option>
@@ -32,6 +34,8 @@
                     <option value="@item.Id">@item.Nombre</option>
                 }
         </select>
+        <span asp-validation-for="@Model.Id_usuario_asignado"></span>
+
     </div>
     <div class="btn-group d-flex my-4" role="group">
         <button type="submit" class="btn btn-primary">Crear</button>

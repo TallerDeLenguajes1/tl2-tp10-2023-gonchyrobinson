@@ -3,26 +3,19 @@ using tl2_tp10_2023_gonchyrobinson.Models;
 namespace tl2_tp10_2023_gonchyrobinson.ViewModel;
 public class EditarTareaViewModel
 {
-    [Required][Display(Name ="Id de la Tarea")]
 
     private int id;
     private List<ElementoTableroEnTareaViewModel> tableros;
     private List<ElementoUsuarioEnTareaViewModel> usuarios;
-    [Required][Display(Name ="Nombre de la Tarea")]
 
     private string nombre;
-    [Display(Name = "Estado de la Tarea")]
     private EstadoTarea? estado;
-    [Display(Name = "Descripcion de la Tarea")]
 
     private string? descripcion;
-    [Display(Name = "Color de la Tarea")]
 
     private string? color;
-    [Display(Name = "Id del usuario asignado a la Tarea")]
 
     private int? id_usuario_asignado;
-    [Required][Display(Name = "Id del Tablero asignado a la tarea")]
     private int id_tablero;
 
     public EditarTareaViewModel()
@@ -55,7 +48,11 @@ public class EditarTareaViewModel
     public string? Descripcion { get => descripcion; set => descripcion = value; }
     public string? Color { get => color; set => color = value; }
     public int? Id_usuario_asignado { get => id_usuario_asignado; set => id_usuario_asignado = value; }
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name = "Id del Tablero asignado a la tarea")]
+
     public int Id_tablero { get => id_tablero; set => id_tablero = value; }
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name ="Nombre de la Tarea")]
+
     public string Nombre { get => nombre; set => nombre = value; }
     public EstadoTarea? Estado { get => estado; set => estado = value; }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kz8UflYRiChw3jKBywoW0xZ4AMPdIqXkpBEweoKPw44HKhOapI5LRbADn+mRy8KOb+uppA2zre/yI4oHsrgyJA==",
+  "dgSpecHash": "ukW/bIuty61i7rU20QnA4a1HUVH/fzJPgoMwby1eYoKA+hjSE6w+zJ0lNTZAKPX/BKwZlwprAzeMEXaRs22SYA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj",
+  "projectFilePath": "c:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USUARIO\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\USUARIO\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.2.0\\microsoft.aspnetcore.cryptography.internal.2.2.0.nupkg.sha512",

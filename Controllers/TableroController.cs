@@ -61,6 +61,7 @@ public class TableroController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Crear");
             var tablero = new Tablero(0, t.Id_usuario_propietario, t.Nombre, t.Descripcion);
             var creado = manejo.CrearTablero(tablero);
             return RedirectToAction("Index");
@@ -97,6 +98,7 @@ public class TableroController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Editar");
             var tablero = new Tablero(t.Id, t.IdUsuarioAsignado, t.Nombre, t.Descripcion);
             var editar = manejo.ModificarTablero(t.Id, tablero);
             return RedirectToAction("Index");

@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using tl2_tp10_2023_gonchyrobinson.Models;
 using tl2_tp10_2023_gonchyrobinson.Repository;
 using tl2_tp10_2023_gonchyrobinson.ViewModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace tl2_tp10_2023_gonchyrobinson.Controllers;
 public class LoginController : Controller
@@ -24,6 +25,7 @@ public class LoginController : Controller
     }
     [HttpPost]
     public IActionResult Loguear(LoginViewModel log){
+        // if(!ModelState.IsValid) return RedirectToAction("Index");
         var us = manejo.CoincideUs(log.NombreUs,log.ContraseniaUs);
         if(us!=null){
             CrearSessionLogin(us);

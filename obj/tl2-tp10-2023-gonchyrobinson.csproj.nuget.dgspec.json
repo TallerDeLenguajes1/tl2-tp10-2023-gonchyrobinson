@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj": {}
+    "c:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj": {
+    "c:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj",
+        "projectUniqueName": "c:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj",
         "projectName": "tl2-tp10-2023-gonchyrobinson",
-        "projectPath": "C:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj",
+        "projectPath": "c:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\tl2-tp10-2023-gonchyrobinson.csproj",
         "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\obj\\",
+        "outputPath": "c:\\Users\\USUARIO\\OneDrive\\GONCHY\\Guardar\\TERCERO-Modulo2\\TallerDeLenguajes2\\tl2-tp10-2023-gonchyrobinson\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",

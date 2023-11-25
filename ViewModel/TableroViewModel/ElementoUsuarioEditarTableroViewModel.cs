@@ -3,9 +3,7 @@ using tl2_tp10_2023_gonchyrobinson.Models;
 namespace tl2_tp10_2023_gonchyrobinson.ViewModel;
 
 public class ElementoUsuarioEditarTableroViewModel{
-    [Required][Display(Name = "Id de usuario")]
     private int id;
-    [Required][Display(Name = "Nombre de usuario")]
     private string nombre;
 
     public ElementoUsuarioEditarTableroViewModel()

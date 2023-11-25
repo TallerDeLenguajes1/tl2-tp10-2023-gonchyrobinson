@@ -4,16 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 
 public class ModificarUsuarioViewModel{
-    [Required][Display(Name = "Id de Usuario")]
 
     private int id;
-    [Required][Display(Name = "Nombre de Usuario")]
 
     private string nombreUs;
-    [Required][Display(Name = "Rol de Usuario")]
 
     private Roles rol;
-    [Required][Display(Name = "Contraseña del Usuario")]
 
     private string contrasenia;
 
@@ -29,7 +25,13 @@ public class ModificarUsuarioViewModel{
     }
 
     public int Id { get => id; set => id = value; }
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name = "Nombre de Usuario")]
+
     public string NombreUs { get => nombreUs; set => nombreUs = value; }
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name = "Rol de Usuario")]
+
     public Roles Rol { get => rol; set => rol = value; }
+    [Required(ErrorMessage ="Este campo es requerido")][Display(Name = "Contraseña del Usuario")]
+
     public string Contrasenia { get => contrasenia; set => contrasenia = value; }
 }

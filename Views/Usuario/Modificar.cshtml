@@ -1,6 +1,7 @@
 @using tl2_tp10_2023_gonchyrobinson.ViewModel
 @model ModificarUsuarioViewModel
-        <h1 class="display-4 text-center">Modificar Usuarios</h1>   </div>
+<h1 class="display-4 text-center">Modificar Usuarios</h1>
+</div>
 
 <form asp-controller="Usuario" asp-action="ModificarP" method="post">
     <input hidden asp-for="@Model.Id">
@@ -8,6 +9,7 @@
         <div class="flex-grow-1 form-group">
             <label asp-for="@Model.NombreUs" for="nombre">Nombre de usuario</label>
             <input asp-for="@Model.NombreUs" id="nombre" class="form-control w-50 mb-3" required />
+            <span asp-validation-for="@Model.NombreUs" class="mt-1 text-danger"></span>
         </div>
         <div class="flex-grow-1 d-flex flex-column form-group">
             <label asp-for="@Model.Rol" for="rol">Rol</label>
@@ -15,17 +17,21 @@
                 <option value="@Roles.operador">operador</option>
                 <option value="@Roles.administrador">administrador</option>
             </select>
+            <span asp-validation-for="@Model.Rol" class="mt-1 text-danger"></span>
+
         </div>
         <div class="flex-grow-1 form-group">
             <label asp-for="@Model.Contrasenia" for="contra">Contraseña</label>
             <input type="password" asp-for="@Model.Contrasenia" id="contra" class="form-control" required />
+            <span asp-validation-for="@Model.Contrasenia" class="mt-1 text-danger"></span>
+
         </div>
         <div class="flex-grow-1 btn-group d-flex my-4" role="group">
             <button type="submit" class="btn btn-primary">Modificar</button>
         </div>
-        
+
     </div>
 </form>
 @section Scripts {
-  <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

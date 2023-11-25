@@ -67,6 +67,7 @@ public class TareaController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Crear");
             var tarea = manejo.CrearTarea(new Tarea(tar.Id_tablero, tar.Nombre, tar.Estado, tar.Descripcion, tar.Color, tar.Id_usuario_asignado));
             return RedirectToAction("Index");
         }
@@ -104,6 +105,7 @@ public class TareaController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Index");
             var tar = new Tarea(t.Id_tablero, t.Nombre, t.Estado, t.Descripcion, t.Color, t.Id_usuario_asignado);
             var modificado = manejo.ModificarTarea(t.Id, tar);
             return RedirectToAction("Index");

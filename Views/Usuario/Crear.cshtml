@@ -6,10 +6,12 @@
     <div class="container-fluid form-group d-flex flex-column mb-3">
         <label for="us">Nombre de usuario</label>
         <input class="w-40" id="us" asp-for="@Model.NombreUs" required />
+        <span asp-validation-for="@Model.NombreUs" class="mt-1 text-danger"></span>
     </div>
     <div class="container-fluid form-group d-flex flex-column mb-3">
         <label for="contra">Contraseña</label>
         <input class="w-40" type="password" id="contra"  asp-for="@Model.Contrasenia" required />
+        <span asp-validation-for="@Model.Contrasenia" class="mt-1 text-danger"></span>
     </div>
     <div class="container-fluid form-group d-flex flex-column mb-3">
         <label for="rol">Rol</label>
@@ -17,6 +19,7 @@
             <option value="@Roles.administrador">administrador</option>
             <option value="@Roles.operador">operador</option>
         </select>
+        <span asp-validation-for="@Model.Rol" class="mt-1 text-danger"></span>
     </div>
     <div class="btn-group d-flex my-4" role="group">
         <button type="submit" class="btn btn-primary">Crear</button>

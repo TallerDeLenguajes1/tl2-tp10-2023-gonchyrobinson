@@ -3,18 +3,14 @@ using tl2_tp10_2023_gonchyrobinson.Models;
 namespace tl2_tp10_2023_gonchyrobinson.ViewModel;
 
 public class EditarTableroViewModel{
-    [Required][Display(Name ="Id del Tablero")]
 
     private int id;
-    [Required][Display(Name ="Nombre del Tablero")]
 
     private string nombre;
-    [Required][Display(Name ="Id del Usuario")]
 
     private int idUsuarioAsignado;
 
     private List<ElementoUsuarioEditarTableroViewModel> usuarios;
-    [Required][Display(Name ="Descripcion del Tablero")]
     
     private string descripcion;
 
@@ -34,8 +30,13 @@ public class EditarTableroViewModel{
     }
 
     public int Id { get => id; set => id = value; }
+    [Required(ErrorMessage = "Este campo es requerido")][Display(Name ="Nombre del Tablero")]
     public string Nombre { get => nombre; set => nombre = value; }
+
     public List<ElementoUsuarioEditarTableroViewModel> Usuarios { get => usuarios; set => usuarios = value; }
+    [Required(ErrorMessage = "Este campo es requerido")][Display(Name ="Descripcion del Tablero")]
     public string Descripcion { get => descripcion; set => descripcion = value; }
+    
+    [Required(ErrorMessage = "Este campo es requerido")][Display(Name ="Id del Usuario")]
     public int IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
 }
