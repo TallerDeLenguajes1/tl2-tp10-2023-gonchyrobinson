@@ -49,7 +49,7 @@ public class UsuarioController : Controller
     {
         if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
-            if(!ModelState.IsValid) return RedirectToAction("Index");
+            if(!ModelState.IsValid) return RedirectToAction("Crear");
             var us = new Usuario(vs.NombreUs, vs.Contrasenia, vs.Rol);
             var creado = _manejoUsuario.Crear(us);
             return RedirectToAction("Index");

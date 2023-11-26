@@ -5,6 +5,7 @@
   <div class="form-group">
     <label for="us font-weight-bold">Usuario </label>
     <input asp-for="@Model.NombreUs" class="form-control" id="us" aria-describedby="emailHelp">
+    <span asp-validation-for="@Model.NombreUs" class="mt-1 text-danger"></span>
     <small id="emailHelp" class="form-text text-muted">Ingrese su nombre de usuario</small>
     <span asp-validation-for="@Model.NombreUs" class="text-danger"></span>
   </div>

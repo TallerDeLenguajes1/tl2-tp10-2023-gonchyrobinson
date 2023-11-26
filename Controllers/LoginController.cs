@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using tl2_tp10_2023_gonchyrobinson.Models;
 using tl2_tp10_2023_gonchyrobinson.Repository;
 using tl2_tp10_2023_gonchyrobinson.ViewModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace tl2_tp10_2023_gonchyrobinson.Controllers;
 public class LoginController : Controller
