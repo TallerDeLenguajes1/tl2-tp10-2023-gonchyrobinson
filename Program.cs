@@ -1,8 +1,22 @@
+using tl2_tp10_2023_gonchyrobinson.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(300);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddScoped<IUsuarioRepository,UsuarioRepository>();
+builder.Services.AddScoped<ILoginRepository,LoginRepository>();
+builder.Services.AddScoped<ITableroRepository,TableroRepository>();
+builder.Services.AddScoped<ITareaRepository,TareaRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +31,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,4 +1,7 @@
-@model List<Tablero>
+@using tl2_tp10_2023_gonchyrobinson.ViewModel
+@model IndexTableroViewModel
+        <h1 class="display-4 text-center">Tableros</h1>   </div>
+
 <table class="table table-dark">
     <thead>
         <tr>
@@ -13,25 +16,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var tab in Model)
+        @foreach (var tab in Model.Tableros)
         {
             <tr>
                 <td hidden>@tab.Id</td>
                 <td hidden>@tab.Id_usuario_propietario</td>
-                @{
-                    var us = ViewBag.UsRepos.ObtenerDetalles(tab.Id_usuario_propietario);
-                    string nombreUs = "";
-                    if (us != null)
-                    {
-                        nombreUs = us.Nombre_de_Usuario;
-                    }
-                }
-                <td>@nombreUs</td>
-                <td>@tab.Nombre</td>
+                <td>@tab.NombreUsuario</td>
+                <td>@tab.NombreTablero</td>
                 <td>@tab.Descripcion</td>
-                <td><a asp-asp-controller="Tablero" asp-action="Editar" asp-route-id="@tab.Id">Modificar</a></td>
-                <td><a asp-asp-controller="Tablero" asp-action="Eliminar" asp-route-id="@tab.Id">Eliminar</a></td>
+                <td><a class="btn bg-warning" asp-asp-controller="Tablero" asp-action="Editar"
+                        asp-route-id="@tab.Id">Modificar</a></td>
+                <td><a class="btn bg-danger" asp-asp-controller="Tablero" asp-action="Eliminar"
+                        asp-route-id="@tab.Id">Eliminar</a></td>
             </tr>
         }
     </tbody>
 </table>
+<div class="btn-group d-flex" role="group">
+    <a class="btn btn-primary btn-success" asp-controller="Tablero" asp-action="Crear">Crear Tablero</a>
+</div>

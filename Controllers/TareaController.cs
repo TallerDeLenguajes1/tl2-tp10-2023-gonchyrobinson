@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_gonchyrobinson.Models;
 using tl2_tp10_2023_gonchyrobinson.Repository;
+using tl2_tp10_2023_gonchyrobinson.ViewModel;
 
 namespace tl2_tp10_2023_gonchyrobinson.Controllers;
 public class TareaController : Controller
@@ -15,64 +16,118 @@ public class TareaController : Controller
     private readonly ILogger<TareaController> _logger;
 
     private TareaRepository manejo = new TareaRepository();
-    private UsuarioRepository manejoUs = new UsuarioRepository();
-    private TableroRepository manejoTab = new TableroRepository();
-    public TareaController(ILogger<TareaController> logger)
+    private readonly IUsuarioRepository _manejoUs;
+    private readonly ITableroRepository _manejoTab;
+
+    public TareaController(ILogger<TareaController> logger, IUsuarioRepository manejoUs, ITableroRepository manejoTab)
     {
         _logger = logger;
+        _manejoUs = manejoUs;
+        _manejoTab = manejoTab;
     }
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Index(int? id)
     {
-        var usuarios = manejo.Listar();
-        ViewBag.Usuarios = usuarios;
-        ViewBag.UsRepos = manejoUs;
-        return View();
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            var usuarios = _manejoUs.ListarUsuarios();
+            if (id != null && (HttpContext.Session.GetInt32("Id") == id || HttpContext.Session.GetString("Rol") == "administrador"))
+            {
+                var tareas = manejo.ListarTareasUsuario((int)id);
+                return View(new IndexTareaViewModel(tareas, usuarios));
+            }
+            else
+            {
+                if (id == null)
+                {
+                    var tareas = manejo.ListarTareasUsuario((int)HttpContext.Session.GetInt32("Id"));
+                    return View(new IndexTareaViewModel(tareas,usuarios));
+                }
+            }
+        }
+        return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
     }
     [HttpGet]
     public IActionResult Crear()
     {
-        var tarea = new Tarea();
-        var tableros = manejoTab.ObtenerIdDisponibles();
-        var usuarios = manejoUs.ListaDeIdUsuarios();
-        ViewBag.Tableros = tableros;
-        ViewBag.Usuarios = usuarios;
-        ViewBag.UsRepos = manejoUs;
-        return View(tarea);
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            var tableros = _manejoTab.Listar();
+            var usuarios = _manejoUs.ListarUsuarios();
+            return View(new CrearTareaViewModel(tableros, usuarios));
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
     [HttpPost]
-    public IActionResult CrearP(Tarea tar)
+    public IActionResult CrearP(CrearTareaViewModel tar)
     {
-        var tarea = manejo.CrearTarea(tar);
-        return RedirectToAction("Index");
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            if(!ModelState.IsValid) return RedirectToAction("Crear");
+            var tarea = manejo.CrearTarea(new Tarea(tar.Id_tablero, tar.Nombre, tar.Estado, tar.Descripcion, tar.Color, tar.Id_usuario_asignado));
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
     [HttpGet]
     public IActionResult Editar(int id)
     {
-        var tarea = manejo.ObtenerDetalles(id);
-        if (tarea != null)
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
         {
-            var tableros = manejoTab.ObtenerIdDisponibles();
-            var usuarios = manejoUs.ListaDeIdUsuarios();
-            ViewBag.Tableros = tableros;
-            ViewBag.Usuarios = usuarios;
-            ViewBag.UsRepos = manejoUs;
-            return View(tarea);
+            var tarea = manejo.ObtenerDetalles(id);
+            if (tarea != null)
+            {
+                var tableros = _manejoTab.Listar();
+                var usuarios = _manejoUs.ListarUsuarios();
+                return View(new EditarTareaViewModel(tarea, tableros, usuarios));
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
         else
         {
-            return RedirectToAction("Index");
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
         }
+
     }
     [HttpPost]
-    public IActionResult EditarP(Tarea t)
+    public IActionResult EditarP(EditarTareaViewModel t)
     {
-        var tar = manejo.ModificarTarea(t.Id, t);
-        return RedirectToAction("Index");
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            if(!ModelState.IsValid) return RedirectToAction("Editar");
+            var tar = new Tarea(t.Id_tablero, t.Nombre, t.Estado, t.Descripcion, t.Color, t.Id_usuario_asignado);
+            var modificado = manejo.ModificarTarea(t.Id, tar);
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
-    public IActionResult Eliminar(int id){
-        var elimina = manejo.EliminarTarea(id);
-        return RedirectToAction("Index");
+    public IActionResult Eliminar(int id)
+    {
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            var elimina = manejo.EliminarTarea(id);
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

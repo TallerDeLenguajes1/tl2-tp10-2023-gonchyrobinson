@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp10_2023_gonchyrobinson.Models;
 using tl2_tp10_2023_gonchyrobinson.Repository;
+using tl2_tp10_2023_gonchyrobinson.ViewModel;
 
 namespace tl2_tp10_2023_gonchyrobinson.Controllers;
 
@@ -9,51 +10,113 @@ public class UsuarioController : Controller
 {
     private readonly ILogger<UsuarioController> _logger;
 
-    private UsuarioRepository manejoUsuario = new UsuarioRepository();
-    public UsuarioController(ILogger<UsuarioController> logger)
+
+    private readonly IUsuarioRepository _manejoUsuario;
+    public UsuarioController(ILogger<UsuarioController> logger,IUsuarioRepository manejo)
     {
         _logger = logger;
+        _manejoUsuario = manejo;
     }
     [HttpGet]
-    public IActionResult Index(){
-        var usuarios = manejoUsuario.ListarUsuarios();
-        return View(usuarios);
+    public IActionResult Index()
+    {
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            var usuarios = _manejoUsuario.ListarUsuarios();
+            return View(new IndexUsuarioViewModel(usuarios));
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
     [HttpGet]
-    public IActionResult Crear(){
-        return View(new Usuario());
+    public IActionResult Crear()
+    {
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            return View(new CrearUsuarioViewModel());
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
     [HttpPost]
-    public IActionResult Crear(Usuario us){
-        var usuario = manejoUsuario.Crear(us);
-        return RedirectToAction("Index");
+    public IActionResult Crear(CrearUsuarioViewModel vs)
+    {
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            if(!ModelState.IsValid) return RedirectToAction("Crear");
+            var us = new Usuario(vs.NombreUs, vs.Contrasenia, vs.Rol);
+            var creado = _manejoUsuario.Crear(us);
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
     //  El id debe aparecer en el formulario, pero no se debe mostrar, por esto, lo ponemos como <input hidden asp-for ="@Model.Id">
-    
+
     [HttpGet]
-    public IActionResult Modificar(int id){
-       var us = manejoUsuario.ObtenerDetalles(id);
-       if (us!=null)
-       {
-            return View(us);
-       }else{
-            return RedirectToAction("Index");
-       }
+    public IActionResult Modificar(int id)
+    {
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            var us = _manejoUsuario.ObtenerDetalles(id);
+            if (us != null)
+            {
+                return View(new ModificarUsuarioViewModel(us));
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
     [HttpPost]
-    public IActionResult ModificarP(Usuario us){
-        var usuario = manejoUsuario.Modificar(us.Id,us);
-        return RedirectToAction("Index");
+    public IActionResult ModificarP(ModificarUsuarioViewModel us)
+    {
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            if(!ModelState.IsValid) return RedirectToAction("Modificar");
+            var usuario = new Usuario(us.Id, us.NombreUs, us.Contrasenia, us.Rol);
+            var modificado = _manejoUsuario.Modificar(us.Id, usuario);
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
-  
-    public IActionResult Eliminar(int id){
-        var eliminado = manejoUsuario.EliminarUsuario(id);
-        return RedirectToAction("Index");
+
+    public IActionResult Eliminar(int id)
+    {
+        if (HttpContext.Session.IsAvailable && HttpContext.Session.GetString("Usuario") != null)
+        {
+            var eliminado = _manejoUsuario.EliminarUsuario(id);
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return (RedirectToRoute(new { Controller = "Login", action = "Index" }));
+        }
+
     }
-   
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    } 
+    }
 }

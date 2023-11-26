@@ -140,7 +140,7 @@ public class TareaRepository : ITareaRepository
             query.Parameters.Add(new SQLiteParameter("@descripcion", t.Descripcion));
             query.Parameters.Add(new SQLiteParameter("@color", t.Color));
             query.Parameters.Add(new SQLiteParameter("@id_usuario_asignado", t.Id_usuario_asignado));
-            query.Parameters.Add(new SQLiteParameter("@id", t.Id));
+            query.Parameters.Add(new SQLiteParameter("@id", id));
             connection.Open();
             query.ExecuteNonQuery();
             connection.Close();
@@ -148,13 +148,14 @@ public class TareaRepository : ITareaRepository
         }
     }
 
-    public Tarea ObtenerDetalles(int id)
+    public Tarea? ObtenerDetalles(int id)
     {
         var queryString = @"SELECT * FROM Tarea WHERE id=@id";
         using (var connection = new SQLiteConnection(cadenaConexion))
         {
             var query = new SQLiteCommand(queryString, connection);
             query.Parameters.Add(new SQLiteParameter("@id", id));
+            Tarea? t = null;
             connection.Open();
             using (var reader = query.ExecuteReader())
             {
@@ -175,10 +176,10 @@ public class TareaRepository : ITareaRepository
                 {
                     id_us = null;
                 }
-                var t = new Tarea(idT, id_tab, nombre, estado, descripcion, color, id_us);
-                connection.Close();
-                return t;
+                t = new Tarea(idT, id_tab, nombre, estado, descripcion, color, id_us);
             }
+            connection.Close();
+            return t;
         }
     }
 
@@ -242,19 +243,20 @@ public class TareaRepository : ITareaRepository
                     string descripcion = reader["descripcion"].ToString();
                     string color = reader["color"].ToString();
                     int? id_us;
-                     if (!reader.IsDBNull(6))
+                    if (!reader.IsDBNull(6))
                     {
                         id_us = Convert.ToInt32(reader["id_usuario_asignado"]);
-                    }else
+                    }
+                    else
                     {
-                        id_us=null;
+                        id_us = null;
                     }
                     var t = new Tarea(id, id_tab, nombre, estado, descripcion, color, id_us);
                     tareas.Add(t);
                 }
-                connection.Close();
-                return tareas;
             }
+            connection.Close();
+            return tareas;
         }
     }
 }
